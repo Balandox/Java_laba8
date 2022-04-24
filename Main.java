@@ -8,7 +8,7 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
-        int size = 1000;
+        int size = 1500;
         Random rand = new Random();
         UsualMatrix firstMatrix = new UsualMatrix(size, size);
         UsualMatrix secondMatrix = new UsualMatrix(size, size);
@@ -23,14 +23,18 @@ public class Main {
         }
         long timeMultiThreading = System.currentTimeMillis();
 
-        ParallelMatrixProduct parallelMatrixProduct = new ParallelMatrixProduct(12);
-        UsualMatrix resultMatrixThread = parallelMatrixProduct.multiThreadingMultiply(firstMatrix, secondMatrix);
+        ParallelMatrixProduct parallelMatrixProduct = new ParallelMatrixProduct(1);
+        UsualMatrix resultMatrixThread = (UsualMatrix) parallelMatrixProduct.multiThreadingMultiply(firstMatrix, secondMatrix);
         System.out.println("Time for multi threading multiplication of matrix: " + (System.currentTimeMillis() - timeMultiThreading));
 
         long timeDefaultMultiplication = System.currentTimeMillis();
 
         IMatrix resultMatrixDefault = firstMatrix.product(secondMatrix);
         System.out.println("Time for default multiplication of matrix: " + (System.currentTimeMillis() - timeDefaultMultiplication));
+
+        System.out.println("Result of multithreading and default multiplication is equals: " + resultMatrixDefault.equals(resultMatrixThread));
+
+
     }
 
 }
